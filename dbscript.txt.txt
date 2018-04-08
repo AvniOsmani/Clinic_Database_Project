@@ -1,0 +1,282 @@
+1.
+CREATE TABLE APPOINTMENT ( APPOINTMENT_ID NUMBER,APP_DATE DATE, APP_TIME TIME, PATIENT_ID NUMBER,DOCTOR_ID NUMBER,APP_CANCELLATION (DATA TYPE))
+
+ALTER TABLE APPOINTMENT
+ADD PRIMARY KEY (APPOINTMENT_ID)
+ADD FOREIGN KEY (PATIENT_ID) 
+REFERENCES PATIENT(PATIENT_ID)
+ADD FOREIGN KEY (DOCTOR_ID)
+REFERENCES DOCTOR(DOCTOR_ID);
+
+2. 
+ CREATE TABLE BILL
+(BILL_NUMBER NUMBER,
+ BILL_DATE DATE,
+ BILL _AMOUNT CURRENCY,
+ INSURANCECOMPANYCODE CHAR (30),
+ VISIT_ID NUMBER)
+
+ALTER TABLE BILL
+ADD PRIMARY KEY (BILL_NUMBER)
+ADD FOREIGN KEY (VISIT_ID) 
+REFERENCES VISIT (VISIT_ID)
+
+3. CREATE TABLE DIAGNOSIS
+(DIAGNOSIS_ID NUMBER, 
+ILLNESS_NAME CHAR (30),
+RECOVERY CHAR (30))
+
+ALTER TABLE DIAGNOSIS
+ADD PRIMARY KEY (DIAGNOSIS_ID)
+
+
+4. 
+CREATE TABLE DOCTOR
+(DOCTOR_ID NUMBER,
+DOCTOR_LN CHAR (20),
+DOCTOR_FN CHAR (20),
+DOCTOR_DOB DATE,
+DOCTOR_PHONE NUMBER,
+DOCTOR_ADDRESS CHAR (30),
+DOCTOR_CITY CHAR (30),
+DOCTOR_STATE CHAR (30),
+DOCTOR_ZIP NUMBER,
+DOCTOR_EMAIL CHAR (30),  
+DOCTOR_ROOM CHAR (10),
+DOCTOR_SPEC CHAR (30))
+
+ALTER TABLE DOCTOR
+ADD PRIMARY KEY (DOCTOR_ID)
+
+
+
+
+
+
+
+5. 
+CREATE TABLE INSURANCE
+(INSURANCECOMPANYCODE CHAR(10),
+INS_NAME CHAR (30),
+INS_ADDRESS CHAR (30),
+INS_CITY CHAR (30),
+INS_STATE CHAR (30),
+INS_ZIP NUMBER,
+INS_PHONE NUMBER,
+INS_EMAIL CHAR (30))
+
+ALTER TABLE INSURANCE
+ADD PRIMARY KEY (INSURANCECOMPANYCODE)
+
+
+
+6. 
+
+CREATE TABLE PATIENT
+(PATIENT_ID NUMBER,
+PATIENT_LN CHAR (30),
+PATIENT_FN CHAR (30),
+PATIENT_DOB DATE,
+PATIENT_PHONE NUMBER,
+PATIENT_ADDRESS CHAR (30),
+PATIENT_STATE CHAR (30),
+PATIENT_CITY CHAR (30),
+PATIENT_ZIP NUMBER,
+PATIENT_EMAIL CHAR (30),
+PATIENT_BLOODTYPE CHAR (30),
+PATIENT_ASTHMA CHAR (30))
+
+ALTER TABLE PATIENT
+ADD PRIMARY KEY (PATIENT_ID)
+ADD FOREIGN KEY (INSURANCECOMPANYCODE) 
+REFERENCES INSURANCE (INSURANCECOMPANYCODE)
+
+
+
+
+
+
+
+7. 
+
+CREATE TABLE PRESCRIPTION
+(PRESCRIPTION_ID NUMBER,
+P_NAME CHAR (30),
+P_QUANTITY NUMBER,
+P_PRICE CURRENCY,
+P_EXP DATE)
+
+ALTER TABLE PRESCRIPTION
+ADD PRIMARY KEY (PRESCRIPTION_ID)
+ADD FOREIGN KEY (DIAGNOSIS_ID) 
+REFERENCES DIAGNOSIS (DIAGNOSIS_ID)
+
+
+8.
+
+CREATE TABLE RESULT
+(VISIT_ID NUMBER,
+DIAGNOSIS_ID NUMBER,
+COMMENT CHAR (30))
+
+ALTER TABLE RESULT  
+ADD PRIMARY KEY (VISIT_ID)
+ADD PRIMARY KEY (DIAGNOSIS_ID)
+
+
+9. 
+
+CREATE TABLE VISIT
+(VISIT_ID NUMBER,
+VISIT_REASON CHAR (30),
+VISIT_DATE DATE,
+HEIGHT CHAR (10),
+WEIGHT CHAR (10))
+
+ALTER TABLE VISIT 
+ADD PRIMARY KEY (VISIT_ID)
+ADD FOREIGN KEY (APPOINTMENT_ID) 
+REFERENCES APPOINTMENT (APPOINTMENT_ID)
+
+
+
+Insert into Appointment
+VALUES
+('1',	'5/11/2016',	'3:30 PM',	        '123',	'876', '0'),
+('2',	'5/4/2016',	'11:00 AM',	        '135',	'987', '0'),
+('3',	'5/8/2016',	'12:30 PM',	        '234',	'543', '1'),
+('4',	'5/19/2016',	'1:15 PM',	        '345',	'654', '0'),
+('5',	'5/15/2016',	'5:00 PM',	        '456',	'987', '0'),
+('6',	'5/13/2016',	'2:45 PM',	        '567',	'876', '1'),
+('7',	'5/11/2016',	'4:30 PM',	        '678',	'654', '0'),
+('8',	'5/16/2016',	'9:30 AM',	        '789',	'543', '0'),
+('9',	'5/12/2016',	'10:15 AM',	        '891',	'765', '1'),
+('10',	'5/10/2016',	'10:45 AM',	        '912',	'765', '0'),
+('11',	'5/14/2016',	'1:30 PM',	        '234',	'543', '0'),
+('12',	'5/15/2016',	'8:30 AM',	        '567',	'876', '0'),
+('13',	'5/14/2016',	'11:15 AM',	        '891',	'765', '0'),
+('14',	'5/19/2016',	'2:30 PM',	        '135',	'765', '0'),
+('15',	'5/20/2016',	'4:45 PM',	        '345',	'654', '0');
+
+
+Insert into Bill
+VALUES
+('1223',	'5/15/2016',	'$250.00',	       '4567',	'1987'),
+('1334',	'5/15/2016',	'$20.00',	       '4567',	'1987'),
+('1445',	'5/14/2016',	'$250.00',	       '2345',	'2198'),
+('1556',	'5/14/2016',	'$10.00',	       '2345',	'2198'),
+('1667',	'5/10/2016',	'$300.00',	       '4567',	'3219'),
+('1778',	'5/10/2016',	'$15.00',	       '4567',	'3219'),
+('1889',	'5/16/2016',	'$600.00',	       '5678',	'4321'),
+('2334',	'5/16/2016',	'$35.00',	       '5678',	'4321'),
+('2445',	'5/11/2016',	'$150.00',	       '1234',	'5432'),
+('2556',	'5/11/2016',	'$10.00',	       '1234',	'5432'),
+('2667',	'5/15/2016',	'$75.00',	       '3456',	'6543'),
+('2778',	'5/15/2016',	'$15.00',	       '3456',	'6543'),
+('2889',	'5/19/2016',	'$90.00',	       '5678',	'7654'),
+('3445',	'5/19/2016',	'$20.00',	       '5678',	'7654'),
+('3556',	'5/4/2016',	'$75.00',	       '1234',	'8765'),
+('3667',	'5/4/2016',	'$10.00',	       '1234',	'8765'),
+('3778',	'5/20/2016',	'$150.00',	       '5678',	'9665'),
+('3889',	'5/20/2016',	'$25.00',	       '5678',	'9665'),
+('4556',	'5/14/2016',	'$130.00',	       '2345',	'9778'),
+('4667',	'5/14/2016',	'$15.00',	       '2345',	'9778'),
+('4778',	'5/11/2016',	'$165.00',	       '3456',	'9876'),
+('4889',	'5/11/2016',	'$15.00',	       '3456',	'9876'),
+('5667',	'5/15/2016',	'$130.00',	       '1234',	'9887'),
+('5778',	'5/15/2016',	'$20.00',	       '1234',	'9887');
+
+Insert into Diagnosis
+VALUES
+('1357',	'Throat Infection',	'4-7 days'),
+('2468',	'SunBurn',	        '3-5 days'),
+('3579',	'Skin Rash',	        '2-5 days'),
+('4682',	'Ear Infection',	'5-7 days'),
+('5556',	'broken foot',	        '7-9 weeks'),
+('5557',	'broken toe',	        '3-4 weeks'),
+('5558',	'fractured rib',	'8-10 weeks'),
+('5793',	'Broken Arm',	        '6-8 weeks'),
+('6824',	'Broken Leg',	        '7-9 weeks'),
+('7935',	'Broken Finger',	'4-5 weeks');
+
+Insert into Doctor
+Values
+('343',	'Blake',	'Chris',	'3/24/1973',	'212-555-4445',	'55 Spring Street',	'Staten Island',	'New York',	'10315',	'chrisblake@gmail.com',	'6',	'orthapedic'),
+('445', 'Murphy',	'Nick',	        '4/23/1965',	'212-555-4446',	'56 Spring Street',	'Staten Island',	'New York',	'10315',	'nickmurphy@gmail.com',	'7',	'dermatology'),
+('446',	'Ryan',	        'Sarah',	'5/11/1954',	'212-555-4447',	'944 Forest Avenue',	'Staten Island',	'New York',	'10314',	'sarahryan@gmail.com',	'8',	'dermatology'),
+('447',	'Patterson',	'Samantha',	'6/23/1976',	'212-555-4448',	'477 Howard Avenue',	'Queens',	        'New York',	'16542',	'samanthapatterson@gmail.com',	'9',	'orthapedic'),
+('543',	'Ross',	        'Lisa',	        '1/8/1957',	'212-555-4118',	'948 Forest Avenue',	'Staten Island',	'New York',	'10314',	'LisaRoss@gmail.com',	'5',	'Orthapdeic'),
+('654',	'Watson',	'Sean',	        '5/11/1952',	'212-555-4773',	'473 Howard Avenue',	'Queens',	        'New York',	'16542',	'SeanWatson@gmail.com',	'4',	'Dermatology'),
+('765',	'Joseph',	'Blake',	'8/29/1954',	'212-555-4238',	'338 Atlantic Avenue',	'Brooklyn',	        'New York',	'11218',	'JosephBlake@gmail.com',	'3',	'Otolaryngology'),
+('876',	'Allen',	'Grace',        '3/17/1972',	'212-555-4844',	'63 Wild Avenue',	'Bronx',	        'New York',	'14685',	'GraceAllen@gmail.com',	'2',	'Orthapdic'),
+('987',	'Hill',	        'Justin',	'4/12/1965',	'212-555-4927',	'54 Spring Street',	'Staten Island',	'New York',	'10315',	'JustinHill@gmail.com',	'1',	'Otolaryngology'),
+('4448','Smith',	'John',	        '9/30/1972',	'212-555-4449',	'339 Atlantic Avenue',	'Brooklyn',	        'New York',	'11218',	'johnsmith@gmail.com',	'10',	'dermatology');
+
+Insert into Insurance
+VALUES
+('1234',	'BlueCrossBlueShield',	'5 Park Place',	'New York',	'New York',	'10013',	'212-555-3829',	'BlueCrossBlueShield@gmail.com'),
+('2345',	'Aetna',	'88 Lexington Ave',	'New York',	'New York',	'10012',	'212-555-7261',	'Aetna@gmail.com'),
+('3456',	'Cigna',	'37 Chambers Street',	'New York',	'New York',	'10014',	'212-555-7829',	'Cigna@gmail.com'),
+('4567',	'UnitedHealthCare',	'73 Reade Street',	'New York',	'New York',	'10012',	'212-555-9843',	'UnitedHealthCare@gmail.com'),
+('5678',	'Humana',	'45 Chambers Street',	'New York',	'New York',	'10014',	'212-555-2372',	'Humana@gmail.com'),
+('7772',	'Magnacare',	'76 Reade Street',	'New York',	'New York',	'10012',	'212-555-2221',	'magnacare@gmail.com'),
+('7775',	'Tricare',	'75 Reade Street',	'New York',	'New York',	'10012',	'212-555-2223',	'tricare@gmail.com'),
+('7776',	'Qualcare',	'89 Lexington Avenue',	'New York',	'New York',	'10012',	'212-555-2226',	'qualcare@gmail.com'),
+('7778',	'Horizon',	'6 Park Place',	'New York',	'New York',	'10013',	'212-555-2227',	'horizon@gmail.com'),
+('7779',	'Amerigroup',	'46 Chambers Street',	'New York',	'New York',	'10014',	'212-555-2228',	'amerigroup@gmail.com'),
+
+Instert into Patient
+VALUES
+('123',	'Kerr',	'Joe',	'10/31/1974',	'212-555-5454',	'21 Crime Alley',	'New York',	'New York',	'10010',	'JoeKerr@gmail.com',	'A-',	'No',	'3456')'
+(135',	'Hunter	Julia',	'8/7/1984',	'718-555-5639',	'14 Liberty Avenue',	'Bronx',	'New York',	'14516',	'JuliaHunter@aol.com',	'AB+',	'No',	'234')'
+(234',	'Thompson',	'Diane',	'5/24/1965',	'718-555-5463',	'55 Flatbush Avenue',	'Brooklyn',	'New York',	'11215',	'DianeThompson@aol.com',	'B+',	'Yes',	'2345')'
+(345',	'Sharp',	'Oliver',	'3/12/1978',	'718-555-9283',	'89 Howard Street',	'Queens',	'New York',	'16452',	'OliverSharp@gmail.com',	'B-',	'No',	'5678')'
+(456',	'Vance',	'Jack',	'7/3/1984',	'718-555-7625',	'44 Brielle Avenue',	'Brooklyn',	'New York',	'11219',	'JackVance@aol.com',	'O-',	'No,	'3456',)'
+(567',	'Taylor',	'Wanda',	'2/15/1972',	'718-555-9012',	'12 Atlantic Ave',	'Brooklyn',	'New York',	'11215',	'WandaTaylor@gmail.com', 'AB-',	'No',	'4567')'
+(678',	'Barry',	'Bailey',	'9/5/1967',	'718-555-6372',	'34 Spring Street',	'Bronx',	'New York',	'14512',	'BarryBailey@gmail.com',	'B+',	'Yes',	'1234',)'
+(789',	'Kim',	'Jones',	'3/28/1987',	'212-555-2384',	'152 Lexington Avenue',	'New York',	'New York',	'10011',	'KimJones@gmail.com',	'O+',	'No',	'5678',)'
+(891',	'Morgan',	'Nicole',	'1/18/1982',	'718-555-5284',	'25 Spring Street',	'Staten Island',	'New York',	'10316',	'NicoleMorgan@aol.com',	'A+',	'Yes',	'2345',)'
+(912',	'Thompson',	'Leonard',	'5/24/1975',	'718-555-1842',	'61 Forest Avenue'	'Queens',	'New York',	'16458',	'LeonardThompson@gmail.com',	'A+',	'No',	'4567',);
+
+Insert into Prescription
+VALUES
+('1212',	'Antibiotics',	'100',	'$0.50',	'6/14/2017',	'1357'),
+('2323',	'Aloe Vera',	'500',	'$0.10',	'6/28/2017',	'2468'),
+('3434',	'Methylprednisolone oral',	'350',	'$0.05',	'6/8/2017',	'3579'),
+('4545',	'Amoxicillin',	'115',	'$0.45',	'6/17/2017',	'4682'),
+('5656',	'Ibuprofen',	'55',	'$0.35',	'6/22/2017',	'5793'),
+('6767',	'Tylenol',	'70',	'$0.40',	'6/16/2017',	'6824'),
+('7878',	'Advil',	'30',	'$0.30',	'6/5/2017',	'7935'),
+('9994',	'Vicodin',	'600',	'$1.50',	'6/30/2017',	'5556'),
+('9995',	'Percocet',	'550',	'$1.25',	'6/29/2017',	'5557'),
+('9996',        'Oxycontin',	'500',	'$0.90',	'6/22/2017',	'5558');
+
+Insert into Result
+VALUES
+('1987',	'5793',	'no physical activity'),
+('2198',	'5793',	'no physical activity'),
+('3219',	'6824',	'rest'),
+('4321',	'6824',	'rest'),
+('5432',	'3579',	'cover skin to prevent further injury'),
+('6543',	'1357',	'drink tea'),
+('7654',	'2468',	'stay away from sun'),
+('8765',	'1357',	'drink tea'),
+('9665',	'3579',	'cover skin to prevent further injury'),
+('9778',	'4682',	'do not listen to loud music'),
+('9876',	'7935',	'use other hand'),
+('9887',	'4682',	'do not listen to loud music'),
+
+Insert into Visit
+VALUES
+('1987',	'left arm injury',	'5/15/2016',	'"5'9"',	'167lbs',	'12'),
+('2198',	'right arm injury',	'5/14/2016',	'"5'10"',	'178lbs',	'11'),
+('3219',	'dropped bowling ball on foot',	'5/10/2016',	'"5'11"',	'181lbs',	'10'),
+('4321',	'fell down stairs',	'5/16/2016',	'"5'5"',	'147lbs',	'8'),
+('5432',	'skin rash',	'5/11/2016',	'"5'9"',	'184lbs',	'7'),
+('6543',	'sore throat',	'5/15/2016',	'"6'1"',	'194lbs',	'5'),
+('7654',	'sunburn',	'5/19/2016',	'"5'10"',	'175lbs',	'4'),
+('8765',	'sore throat',	'5/4/2016',	'"5'7"',	'145lbs',	'2'),
+('9665',	'skin rash',	'5/20/2016',	'"5'10"',	'169lbs',	'15'),
+('9778',	'ear pain',	'5/14/2016',	'"5'9"',	'156lbs',	'13'),
+('9876',	'broken finger',	'5/11/2016',	'"5'11"',	'155lbs',	'1'),
+('9887',	'ear pain',	'5/19/2016',	'"5'7"',	'149lbs',	'14');
